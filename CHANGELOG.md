@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.34.0] - 2026-10-11
+
+### Fixed
+- **A launch that fails before the browser starts stops the hidden display.**
+  With `headless=True`, a launch that failed while composing the prefs, the
+  proxy or the environment (a proxy scheme the engine cannot express, a font
+  manifest it does not carry) left the hidden display running: an Xvfb process
+  on Linux, a desktop handle on Windows. A retry loop around the launch
+  collected one per attempt (#326, by RayenMlayeh).
+
 ## [0.33.1] - 2026-10-11
 
 ### Fixed
