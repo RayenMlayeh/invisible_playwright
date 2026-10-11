@@ -129,15 +129,15 @@ class InvisiblePlaywright(_session.CommonLaunch):
         # binary_path= never reaches ensure_binary(), so the engine check lives
         # on the resolved executable rather than inside the fetcher.
         executable = resolve_executable(self._binary_path)
-        # the REAL result of _resolve_headless (did it create an
-        # alternate desktop or not?) must be known BEFORE composing the
-        # prefs, not after: B172, 2026-08-24.
-        pw_headless = self._resolve_headless()
-        prefs = self._build_prefs()
-        playwright_proxy = _configure_proxy_shared(self._proxy, prefs)
-        self._session_token = SessionToken.mint()
-        env = self._build_env(prefs)
         try:
+            # the REAL result of _resolve_headless (did it create an
+            # alternate desktop or not?) must be known BEFORE composing the
+            # prefs, not after: B172, 2026-08-24.
+            pw_headless = self._resolve_headless()
+            prefs = self._build_prefs()
+            playwright_proxy = _configure_proxy_shared(self._proxy, prefs)
+            self._session_token = SessionToken.mint()
+            env = self._build_env(prefs)
             self._pw = await async_playwright().start()
             if self._profile_dir is not None:
                 # See sync launcher for the persistent-context rationale.
